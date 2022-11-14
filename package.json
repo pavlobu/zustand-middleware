@@ -1,8 +1,8 @@
 {
-  "name": "zustand",
-  "private": true,
-  "version": "4.1.4",
-  "description": "🐻 Bear necessities for state management in React",
+  "name": "@pavlobu/zustand-middleware",
+  "private": false,
+  "version": "1.0.1",
+  "description": "Better zustand middleware by pavlobu",
   "main": "./index.js",
   "types": "./index.d.ts",
   "typesVersions": {
@@ -81,11 +81,7 @@
     "build": "concurrently -m 8 'yarn:build:*'",
     "build:base": "rollup -c",
     "build:vanilla": "rollup -c --config-vanilla",
-    "build:middleware": "rollup -c --config-middleware",
-    "build:middleware:immer": "rollup -c --config-middleware_immer",
-    "build:shallow": "rollup -c --config-shallow",
-    "build:context": "rollup -c --config-context",
-    "postbuild": "yarn copy && yarn patch-esm-ts",
+    "postbuild": "yarn copy",
     "prettier": "prettier \"*.{js,json,md}\" \"{examples,src,tests,docs}/**/*.{js,jsx,ts,tsx,md,mdx}\" --write",
     "prettier:ci": "prettier '*.{js,json,md}' '{examples,src,tests,docs}/**/*.{js,jsx,ts,tsx,md,mdx}' --list-different",
     "eslint": "eslint --fix '*.{js,json}' '{src,tests}/**/*.{ts,tsx}'",
@@ -95,8 +91,7 @@
     "test:ci": "jest",
     "test:dev": "jest --watch --no-coverage",
     "test:coverage:watch": "jest --watch",
-    "copy": "shx cp -r dist/src/* dist/esm && shx cp -r dist/src/* dist && shx rm -rf dist/src && shx rm -rf dist/{src,tests} && downlevel-dts dist dist/ts3.4 && shx cp package.json readme.md LICENSE dist && json -I -f dist/package.json -e \"this.private=false; this.devDependencies=undefined; this.optionalDependencies=undefined; this.scripts=undefined; this.prettier=undefined; this.jest=undefined;\"",
-    "patch-esm-ts": "node -e \"require('shelljs').find('dist/esm/**/*.d.ts').forEach(f=>require('fs').copyFileSync(f,f.replace(/\\.ts$/,'.mts')))\"; shx sed -i \"s/ from '(\\..*)';$/ from '\\$1.mjs';/\" 'dist/esm/**/*.d.mts'; shx sed -i \"s/^declare module '(\\..*)'/declare module '\\$1.mjs'/\" 'dist/esm/**/*.d.mts'"
+    "copy": "downlevel-dts dist dist/ts3.4 && shx cp package.json readme.md LICENSE dist && json -I -f dist/package.json -e \"this.private=false; this.devDependencies=undefined; this.optionalDependencies=undefined; this.scripts=undefined; this.prettier=undefined; this.jest=undefined;\""
   },
   "engines": {
     "node": ">=12.7.0"
@@ -111,7 +106,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pmndrs/zustand.git"
+    "url": "git+https://github.com/pavlobu/zustand-middleware.git"
   },
   "keywords": [
     "react",
@@ -126,7 +121,7 @@
     "Jeremy Holcomb (https://github.com/JeremyRH)",
     "Daishi Kato (https://github.com/dai-shi)"
   ],
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/pmndrs/zustand/issues"
   },
@@ -227,5 +222,9 @@
     "react": {
       "optional": true
     }
+  },
+  "directories": {
+    "doc": "docs",
+    "example": "examples"
   }
 }
