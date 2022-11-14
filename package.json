@@ -1,7 +1,7 @@
 {
   "name": "@pavlobu/zustand-middleware",
   "private": false,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Better zustand middleware by pavlobu",
   "main": "./index.js",
   "types": "./index.d.ts",
